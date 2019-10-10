@@ -13,4 +13,17 @@ def get_resource(id=None):
     print(resp.status_code)
     print(resp.json())
 
-get_resource(2)
+
+
+def create_resource():
+    data={
+        'eno':999,
+        'ename':'Bahubali',
+        'esal':457845.5754,
+        'eaddr':"Mahismati"
+    }
+    resp=requests.post(BASE_URI+ENDPOINT,data=json.dumps(data))
+    print(resp.status_code)
+    print(resp.json())
+
+create_resource()
