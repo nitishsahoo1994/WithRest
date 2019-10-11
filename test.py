@@ -26,4 +26,22 @@ def create_resource():
     print(resp.status_code)
     print(resp.json())
 
-create_resource()
+def update_resource(id):
+    data={
+        'id':id,
+        'ename':'Sunny',
+        'esal':49999
+    }
+    resp=requests.put(BASE_URI+ENDPOINT,data=json.dumps(data))
+    print(resp.status_code)
+    print(resp.json())
+update_resource(4)
+
+def delete_resource(id):
+    data={
+        'id':id
+    }
+    resp=requests.delete(BASE_URI+ENDPOINT,data=json.dumps(data))
+    print(resp.status_code)
+    print(resp.json())
+

@@ -40,4 +40,34 @@ class EmployeeCRUDCBV(View):
         json_data=JSONRenderer().render(serializer.errors)
         return HttpResponse(json_data, content_type='application/json',status=404)
 
+    def put(self,request,*args,**kwargs):
+        json_body=request.body
+        stream=io.BytesIO(json_body)
+        pdata=JSONParser().parse(stream)
+        id=pdata.get('id')
+        emp=Employee.objects.get(id=id)
+        serializer=EmployeeSerializer(emp,data=pdata,partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            msg={'msg':'Resource updated successfully'}
+            json_data=JSONRenderer().render(msg)
+            return HttpResponse(json_data,content_type='application/json')
+        json_data = JSONRenderer().render(serializer.errors)
+        return HttpResponse(json_data, content_type='application/json',status=400)
+
+
+
+    def delete(self,request,*args,**kwargs):
+        json_data=request.body
+        stream=io.BytesIO(json_data)
+        pdata=JSONParser().parse(stream)
+        id=pdata.get('id')
+        emp=Employee.objects.get(id=id)
+        emp.delete()
+        msg={'msg':'Resource deleted Successfully'}
+        json_data=JSONRenderer().render(msg)
+        return HttpResponse(json_data,content_type='application/json')
+
+
+
 
