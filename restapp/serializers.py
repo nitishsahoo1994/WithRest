@@ -1,5 +1,7 @@
 from restapp.models import Employee
 from rest_framework import serializers
+
+
 def multiple_of_1000(value):
     if value%1000!=0:
         raise serializers.ValidationError('Employee salary should be mutiple of 1000')
