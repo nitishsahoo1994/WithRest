@@ -30,7 +30,7 @@ def update_resource(id):
     data={
         'id':id,
         'ename':'Sunny',
-        'esal':49999
+        'esal':50009
     }
     resp=requests.put(BASE_URI+ENDPOINT,data=json.dumps(data))
     print(resp.status_code)

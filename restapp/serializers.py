@@ -1,10 +1,14 @@
 from restapp.models import Employee
 from rest_framework import serializers
+def multiple_of_1000(value):
+    if value%1000!=0:
+        raise serializers.ValidationError('Employee salary should be mutiple of 1000')
+    return value
 
 class EmployeeSerializer(serializers.Serializer):
     eno = serializers.IntegerField()
     ename = serializers.CharField(max_length=64)
-    esal = serializers.FloatField()
+    esal = serializers.FloatField(validators=[multiple_of_1000])
     eaddr = serializers.CharField(max_length=264)
 
     def validate_esal(self,value):
